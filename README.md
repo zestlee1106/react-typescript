@@ -40,3 +40,17 @@ const Container = styled.div<ContainerProps>`
 - PropsTypes 를 이용하여 타입 정의를 할 수도 있는데, 그건 코드 실행 후에 잘못된 것을 알 수 있고  
   typescript 는 코드 실행 전에 알 수 있다는 점에서 다르다.
 - 개발자를 돕는 건 코드 실행 전에 알고 주의해 주는 것이기 때문에, typescript 를 사용하는 편이 더 좋다
+
+## Component 에 props 를 optional 로 주려면 어떻게 해야 할까?
+
+- 지금은 required 로 동작한다. (해당 props 가 없으면 error 로 떨어지고 있음)
+- 만약에 이걸 있어도 되고 없어도 되는 props 로 만들어 주고 싶다면,  
+  만들었던 interface 에 optional 옵션을 주면 된다.
+
+```typescript
+interface CircleProps {
+  bgColor: string;
+  borderColor?: string;
+  text?: string;
+}
+```
