@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 interface ContainerProps {
@@ -20,6 +21,10 @@ interface CircleProps {
 }
 
 function Circle({ bgColor, borderColor, text = "default text" }: CircleProps) {
+  // 두 개의 타입을 줄 수도 있지만 이걸 쓰는 일은 별로 없을 거임
+  // const [value, setValue] = useState<number | string>(0);
+  const [value, setValue] = useState(0);
+  setValue(0);
   return (
     <Container bgColor={bgColor} borderColor={borderColor ?? bgColor}>
       {text}

@@ -54,3 +54,18 @@ interface CircleProps {
   text?: string;
 }
 ```
+
+## state 에 타입을 지정하는 법은 없을까?
+
+- setState 를 사용하고, 기본값을 넣어 준다면 typescript 의 타입 추론으로 알아서 타입이 지정된다.
+- 하지만 만약에 타입을 두 가지 넣어 주고 싶다면, 제네릭을 쓰면 된다.
+
+```tsx
+const [value, setValue] = useState<string | number>(0);
+setValue(3); // 정상
+setValue("TEST"); // 정상
+setValue(true); // 에러
+```
+
+- 하지만 보통은 setState 에 타입을 넣어 줄 땐 하나의 타입으로 쭉 가기 때문에, 별로 사용은 안 한다.
+- 그냥 있다는 정도만 알고 있으면 될 것 같다
