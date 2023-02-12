@@ -69,3 +69,23 @@ setValue(true); // 에러
 
 - 하지만 보통은 setState 에 타입을 넣어 줄 땐 하나의 타입으로 쭉 가기 때문에, 별로 사용은 안 한다.
 - 그냥 있다는 정도만 알고 있으면 될 것 같다
+
+## form 에서 타입스크립트 사용하기
+
+- form 에서 타입스크립트를 사용하는 법은 간단하다.
+- React에서 지원해 주는 타입을 사용하면 되는데, 아래처럼 지정해 주면 된다.
+
+```tsx
+const onChange = (event: React.FormEvent<HTMLInputElement>) => {
+  const {
+    currentTarget: { value },
+  } = event;
+  setUsername(value);
+};
+const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  console.log("hello", username);
+};
+```
+
+- 여기서 target 과 currentTarget 은 같은 거라고 생각하면 되는데, react 에서는 currentTarget 을 선택했다
