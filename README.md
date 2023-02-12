@@ -89,3 +89,43 @@ const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 ```
 
 - 여기서 target 과 currentTarget 은 같은 거라고 생각하면 되는데, react 에서는 currentTarget 을 선택했다
+
+## Theme 에 typescript 적용하기
+
+- styled-components 에 타입을 확장시키면 된다.
+- 파일명에 d.ts 를 포함할 경우 type declare 파일이 되는데, styled.d.ts 파일처럼 타입 선언 파일을 하나 생성한 뒤, 아래처럼 모듈에 interface 를 추가해 주면 된다.
+
+```typescript
+import "styled-components";
+
+declare module "styled-components" {
+  export interface DefaultTheme {
+    textColor: string;
+    bgColor: string;
+    btnColor: string;
+  }
+}
+```
+
+- 그리고 추가해 줄 theme 파일에 theme 을 추가하면 되는데, 추가해 준 theme 인터페이스 타입으로 지정해 주면 된다.
+
+```typescript
+import { DefaultTheme } from "styled-components";
+
+export const lightTheme: DefaultTheme = {
+  bgColor: "white",
+  textColor: "black",
+  btnColor: "tomato",
+};
+```
+
+- 이렇게 했을 때의 이점은, `DefaultTheme` 에서 추가한 타입들과 맞지 않았을 때 오류를 내뱉어 주고, required 속성을 바로 잡았을 때 좋다.
+- 추가한 lightTheme 을 사용해 주고 싶다면, index 에 가서 ThemeProvider 에 props 로 추가해 주면 되고, 추가한 style 을 styled component 에서 사용할 수 있다.
+
+```tsx
+const Container = styled.div`
+  background-color: ${(props) => props.theme.bgColor};
+`;
+```
+
+- 이렇게 했을 때의 이점은, theme 인 interface 타입 추론이 되기 때문에, theme 에 없는 속성을 불러올 경우 에러를 내뱉에서 개발자의 실수를 덜어 줄 수 있다.
